@@ -3,17 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Oxford Redirect</title>
+</head>
+<body>
+    <h2>Redirecting...</h2>
+    <div id="info"></div>
+    
     <script>
-        // Получаем слово из хеша (#word)
-        const hash = window.location.hash;
-        const word = hash ? hash.substring(1) : '';
+        function redirect() {
+            const hash = window.location.hash;
+            const word = hash ? hash.substring(1) : '';
+            
+            const info = document.getElementById('info');
+            info.innerHTML = 'Hash: ' + hash + '<br>Word: ' + word;
+            
+            if (word) {
+                const targetUrl = `https://www.oxfordlearnersdictionaries.com/definition/english/${word.toLowerCase()}`;
+                info.innerHTML += '<br>Redirecting to: ' + targetUrl;
+                
+                setTimeout(() => {
+                    window.location.replace(targetUrl);
+                }, 500);
+            } else {
+                info.innerHTML += '<br>Error: No word found';
+            }
+        }
         
-        if (word) {
-            window.location.replace(
-                `https://www.oxfordlearnersdictionaries.com/definition/english/${word.toLowerCase()}`
-            );
+        // Ждем полной загрузки страницы
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', redirect);
+        } else {
+            redirect();
         }
     </script>
-</head>
-<body>Redirecting...</body>
+</body>
 </html>
