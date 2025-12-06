@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Oxford Redirect</title>
+    <script>
+        const path = window.location.pathname;
+        const word = path.replace('/oxford-redirect/', '').replace('/', '');
+        
+        if (word && word !== 'index.html') {
+            window.location.replace(
+                `https://www.oxfordlearnersdictionaries.com/definition/english/${word.toLowerCase()}`
+            );
+        }
+    </script>
+</head>
+<body>Redirecting...</body>
+</html>
